@@ -23,7 +23,7 @@ public class HospitalProxy {
 
     public ArrayList<Hospital> getAvaibleHospitalsBySpecialist(String specialist) {
         String baseApiUrl = customProperties.getApiUrlHospital();
-		String getHospitalssWithSpecialistUrl = baseApiUrl + "/hospitalswithspecialist/" + specialist;
+		String getHospitalssWithSpecialistUrl = baseApiUrl + "/avaiblehospitalswithspecialist/" + specialist;
 
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<ArrayList<Hospital>> response = restTemplate.exchange(
