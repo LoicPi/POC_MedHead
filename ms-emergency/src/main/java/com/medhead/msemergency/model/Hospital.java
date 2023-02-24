@@ -13,9 +13,9 @@ public class Hospital {
 
     private String address;
 
-    private String longitude;
-
     private String latitude;
+
+    private String longitude;
 
     private Set<Specialist> Specialist;
 
