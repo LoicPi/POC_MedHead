@@ -19,10 +19,10 @@ public class EmergencyProxy {
     @Autowired
     private CustomProperties customProperties;
 
-    public Integer getDistanceBetweenHospitalAndEmergency(String emergencyLatitude, String emergencyLongitude, String hospitalLatitude, String hospitalLongitude) {
+    public Integer getDistanceBetweenHospitalAndEmergency(String emergencyLongitude, String emergencyLatitude, String hospitalLongitude, String hospitalLatitude) {
 
         String baseApiUrl = customProperties.getApiUrlDistance();
-        String getDistance = baseApiUrl + "?point=" + emergencyLatitude + "%2C" + emergencyLongitude + "&point=" + hospitalLatitude + "%2C" + hospitalLongitude + "&locale=en&instructions=false";
+        String getDistance = baseApiUrl + "?point=" + emergencyLongitude + "%2C" + emergencyLatitude + "&point=" + hospitalLongitude + "%2C" + hospitalLatitude + "&locale=en&instructions=false";
 
         RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<Object> response = restTemplate.exchange(
