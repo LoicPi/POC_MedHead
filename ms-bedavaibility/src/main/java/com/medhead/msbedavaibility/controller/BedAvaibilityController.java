@@ -13,6 +13,11 @@ public class BedAvaibilityController {
     @Autowired
     private BedAvaibilityService bedAvaibilityService;
 
+    /**
+     * Function Post to add a bed avaibility
+     * @param hospitalId the id of the hospital concern by the bed avaibility
+     * @return the number of reservation for the bed avaibility
+     */
     @PostMapping("/savedBedAvaibility/{hospitalId}")
     public String savedBedAvaibility(@PathVariable(value="hospitalId") Integer hospitalId) {
         return bedAvaibilityService.savedBedAvaibility(hospitalId);
