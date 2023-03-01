@@ -36,7 +36,7 @@ public class EmergencyService {
      */
     public NearestHospitalReservation getNearestHospitalReservation(Emergency emergency) {
         
-        ArrayList<Hospital> hospitals = hospitalProxy.getAvaibleHospitalsBySpecialist(emergency.getSpecialist());
+        ArrayList<Hospital> hospitals = hospitalProxy.getAvaibleHospitalsBySpecialist(emergency.getSpeciality());
 
         Hospital nearestHospital = getNearestHospital(emergency, hospitals);
 

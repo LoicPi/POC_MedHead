@@ -21,9 +21,9 @@ public class HospitalProxy {
     @Autowired
     private CustomProperties customProperties;
 
-    public ArrayList<Hospital> getAvaibleHospitalsBySpecialist(String specialist) {
+    public ArrayList<Hospital> getAvaibleHospitalsBySpecialist(String speciality) {
         String baseApiUrl = customProperties.getApiUrlHospital();
-		String getHospitalssWithSpecialistUrl = baseApiUrl + "/avaiblehospitalswithspecialist/" + specialist;
+		String getHospitalssWithSpecialistUrl = baseApiUrl + "/avaiblehospitalswithspecialist/" + speciality;
 
 		RestTemplate restTemplate = new RestTemplate();
 		ResponseEntity<ArrayList<Hospital>> response = restTemplate.exchange(

@@ -9,6 +9,6 @@ public class Emergency {
 
     private String longitude;
 
-    private String specialist;
+    private String speciality;
 
 }
