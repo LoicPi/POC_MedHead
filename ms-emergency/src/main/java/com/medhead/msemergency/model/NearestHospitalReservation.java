@@ -7,7 +7,9 @@ public class NearestHospitalReservation {
     
     private String name;
 
-    private String address;
+    private String latitude;
+
+    private String longitude;
 
     private String reservation;
 

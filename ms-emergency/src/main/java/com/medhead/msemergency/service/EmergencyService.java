@@ -73,7 +73,8 @@ public class EmergencyService {
         NearestHospitalReservation nearestHospitalReservation = new NearestHospitalReservation();
         
         nearestHospitalReservation.setName(nearestHospital.getName());
-        nearestHospitalReservation.setAddress(nearestHospital.getAddress());
+        nearestHospitalReservation.setLatitude(nearestHospital.getLatitude());
+        nearestHospitalReservation.setLongitude(nearestHospital.getLongitude());
         nearestHospitalReservation.setReservation(reservation);
 
         return nearestHospitalReservation;
