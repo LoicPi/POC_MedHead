@@ -12,7 +12,7 @@ public class CustomProperties {
     
     private String apiUrlHospital;
 
-    private String apiUrlBedAvaibility;
+    private String apiUrlBedAvailable;
 
     private String apiUrlDistance;
 

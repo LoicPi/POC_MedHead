@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.medhead.msemergency.model.Emergency;
 import com.medhead.msemergency.model.Hospital;
 import com.medhead.msemergency.model.NearestHospitalReservation;
-import com.medhead.msemergency.repository.BedAvaibilityProxy;
+import com.medhead.msemergency.repository.BedAvailableProxy;
 import com.medhead.msemergency.repository.EmergencyProxy;
 import com.medhead.msemergency.repository.HospitalProxy;
 
@@ -23,7 +23,7 @@ public class EmergencyService {
     private HospitalProxy hospitalProxy;
 
     @Autowired
-    private BedAvaibilityProxy bedAvaibilityProxy;
+    private BedAvailableProxy bedAvailableProxy;
 
     @Autowired
     private EmergencyProxy emergencyProxy;
@@ -36,11 +36,11 @@ public class EmergencyService {
      */
     public NearestHospitalReservation getNearestHospitalReservation(Emergency emergency) {
         
-        ArrayList<Hospital> hospitals = hospitalProxy.getAvaibleHospitalsBySpecialist(emergency.getSpeciality());
+        ArrayList<Hospital> hospitals = hospitalProxy.getAvailableHospitalsBySpecialist(emergency.getSpeciality());
 
         Hospital nearestHospital = getNearestHospital(emergency, hospitals);
 
-        String reservation = bedAvaibilityProxy.savedBedAvaibility(nearestHospital.getId());
+        String reservation = bedAvailableProxy.savedBedAvailable(nearestHospital.getId());
 
         NearestHospitalReservation nearestHospitalReservation = createNearestHospitalReservation(nearestHospital, reservation);
 

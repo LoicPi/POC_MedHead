@@ -1,13 +1,13 @@
-package com.medhead.msbedavaibility;
+package com.medhead.msbedavailable;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class MsBedavaibilityApplication {
+public class MsBedAvailableApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(MsBedavaibilityApplication.class, args);
+		SpringApplication.run(MsBedAvailableApplication.class, args);
 	}
 
 }

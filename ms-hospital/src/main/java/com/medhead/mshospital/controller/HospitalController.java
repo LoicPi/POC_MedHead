@@ -17,14 +17,14 @@ public class HospitalController {
     private HospitalService hospitalService;
 
     /**
-     * Function to get list of hospitals with beds avaibilties for the specified speciality.
+     * Function to get list of hospitals with beds available for the specified speciality.
      * @param specialityRequest The speciality requested.
-     * @return list of hospitals with beds avaibilties for the specified speciality.
+     * @return list of hospitals with beds available for the specified speciality.
      */
-    @GetMapping("/avaiblehospitalswithspecialist/{specialityName}")
-    public ArrayList<Hospital> getAvaibleHospitalsWithSpeciality(@PathVariable(value="specialityName") String specialityRequest) {
+    @GetMapping("/availablehospitalswithspecialist/{specialityName}")
+    public ArrayList<Hospital> getAvailableHospitalsWithSpeciality(@PathVariable(value="specialityName") String specialityRequest) {
         
-        return hospitalService.getAvaibleHospitalsWithSpeciality(specialityRequest);
+        return hospitalService.getAvailableHospitalsWithSpeciality(specialityRequest);
     }
 
 }

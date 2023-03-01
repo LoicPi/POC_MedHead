@@ -18,13 +18,13 @@ public class HospitalService {
     private HospitalRepository hospitalRepository;
 
     /**
-     * Function to get list of hospitals with beds avaibilties for the specified speciality.
+     * Function to get list of hospitals with beds available for the specified speciality.
      * @param specialityRequest The speciality requested.
-     * @return The list of hospitals with beds avaibilties for the specified speciality.
+     * @return The list of hospitals with beds available for the specified speciality.
      */
-    public ArrayList<Hospital> getAvaibleHospitalsWithSpeciality(String specialityRequest) {
+    public ArrayList<Hospital> getAvailableHospitalsWithSpeciality(String specialityRequest) {
         
-        ArrayList<Hospital> hospitals = hospitalRepository.getAvaibleHospitalsWithSpeciality(specialityRequest);
+        ArrayList<Hospital> hospitals = hospitalRepository.getAvailableHospitalsWithSpeciality(specialityRequest);
 
         return hospitals;
     }

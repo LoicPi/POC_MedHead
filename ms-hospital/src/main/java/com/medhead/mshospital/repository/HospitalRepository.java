@@ -24,26 +24,26 @@ public class HospitalRepository {
      * @param specialityRequest The speciality requested.
      * @return The list of hospitals with beds avaibilties for the speciality requested.
      */
-    public ArrayList<Hospital> getAvaibleHospitalsWithSpeciality(String specialityRequest) {
+    public ArrayList<Hospital> getAvailableHospitalsWithSpeciality(String specialityRequest) {
 
-        ArrayList<Hospital> avaibleHospitalsWithSpeciality = new ArrayList<Hospital>();
+        ArrayList<Hospital> availableHospitalsWithSpeciality = new ArrayList<Hospital>();
 
         ArrayList<Hospital> hospitals = getHospitals();
         
         for(Hospital hospital : hospitals) {
             for(Speciality speciality : hospital.getSpecialties()) {
                 if (specialityRequest.equals(speciality.getName())) {
-                    avaibleHospitalsWithSpeciality.add(hospital);
+                    availableHospitalsWithSpeciality.add(hospital);
                 }
             }
         }
 
-        return avaibleHospitalsWithSpeciality;
+        return availableHospitalsWithSpeciality;
     }
 
     /**
      * Function to get the list of hospitals by json file.
-     * Select the hospital with beds avaibilties.
+     * Select the hospital with beds available.
      * @return The list of hospitals with beds avaibilties.
      */
     public ArrayList<Hospital> getHospitals() {
@@ -64,9 +64,9 @@ public class HospitalRepository {
             while (iterator.hasNext()) {
                 JSONObject hospitalJson = (JSONObject)iterator.next();
 
-                Integer bedAvaibility = Integer.valueOf((String)hospitalJson.get("BedAvaibility"));
+                Integer bedAvailable = Integer.valueOf((String)hospitalJson.get("BedAvailable"));
 
-                if (bedAvaibility != 0) {
+                if (bedAvailable != 0) {
 
 				    Hospital hospital = new Hospital();
 
@@ -75,7 +75,7 @@ public class HospitalRepository {
 				    hospital.setAddress((String)hospitalJson.get("Address"));
 				    hospital.setLatitude((String)hospitalJson.get("Latitude"));
 				    hospital.setLongitude((String)hospitalJson.get("Longitude"));
-				    hospital.setBedAvaibility((Integer)Integer.valueOf((String)hospitalJson.get("BedAvaibility")));
+				    hospital.setBedAvailable((Integer)Integer.valueOf((String)hospitalJson.get("bedAvailable")));
                     ArrayList<Speciality> specialtiesList = specialityRepository.givenListOfRandomArrayOfSpeciality();
                     hospital.setSpecialties(specialtiesList);
 				    hospitals.add(hospital);

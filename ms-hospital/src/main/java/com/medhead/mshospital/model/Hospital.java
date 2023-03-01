@@ -19,6 +19,6 @@ public class Hospital {
 
     private ArrayList<Speciality> specialties;
     
-    private Integer bedAvaibility;
+    private Integer bedAvailable;
 
 }

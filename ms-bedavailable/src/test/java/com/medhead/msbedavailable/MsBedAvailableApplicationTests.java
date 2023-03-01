@@ -1,10 +1,10 @@
-package com.medhead.msbedavaibility;
+package com.medhead.msbedavailable;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class MsBedavaibilityApplicationTests {
+class MsBedAvailableApplicationTests {
 
 	@Test
 	void contextLoads() {

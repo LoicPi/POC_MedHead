@@ -13,20 +13,20 @@ import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 @Component
-public class BedAvaibilityProxy {
+public class BedAvailableProxy {
     
     @Autowired
     private CustomProperties customProperties;
 
-	public String savedBedAvaibility(Integer nearestHospitalId) {
+	public String savedBedAvailable(Integer nearestHospitalId) {
 
-		String baseApiUrl = customProperties.getApiUrlBedAvaibility();
-		String savedBedAvaibility = baseApiUrl + "/savedBedAvaibility";
+		String baseApiUrl = customProperties.getApiUrlBedAvailable();
+		String savedBedAvailable = baseApiUrl + "/savedBedAvailable";
 
 		RestTemplate restTemplate = new RestTemplate();
 		HttpEntity<Integer> request = new HttpEntity<Integer>(nearestHospitalId);
 		ResponseEntity<String> response = restTemplate.exchange(
-				savedBedAvaibility, 
+				savedBedAvailable,
 				HttpMethod.POST, 
 				request,
 				String.class
