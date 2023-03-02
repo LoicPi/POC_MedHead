@@ -1,6 +1,6 @@
 package com.medhead.msemergency.repository;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
@@ -21,16 +21,16 @@ public class HospitalProxy {
     @Autowired
     private CustomProperties customProperties;
 
-    public ArrayList<Hospital> getAvailableHospitalsBySpecialist(String speciality) {
+    public List<Hospital> getAvailableHospitalsBySpecialist(String speciality) {
         String baseApiUrl = customProperties.getApiUrlHospital();
 		String getHospitalsWithSpecialistUrl = baseApiUrl + "/availablehospitalswithspecialist/" + speciality;
 
 		RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<ArrayList<Hospital>> response = restTemplate.exchange(
+		ResponseEntity<List<Hospital>> response = restTemplate.exchange(
 				getHospitalsWithSpecialistUrl,
 				HttpMethod.GET, 
 				null,
-				new ParameterizedTypeReference<ArrayList<Hospital>>() {}
+				new ParameterizedTypeReference<List<Hospital>>() {}
 			);
 		
 		log.debug("Get HospitalsWithSpecialist call " + response.getStatusCode().toString());

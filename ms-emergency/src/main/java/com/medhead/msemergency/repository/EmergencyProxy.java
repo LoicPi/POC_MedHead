@@ -1,9 +1,8 @@
 package com.medhead.msemergency.repository;
 
+import net.minidev.json.JSONObject;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,20 +21,18 @@ public class EmergencyProxy {
     public Integer getDistanceBetweenHospitalAndEmergency(String emergencyLatitude, String emergencyLongitude, String hospitalLatitude, String hospitalLongitude) {
 
         String baseApiUrl = customProperties.getApiUrlDistance();
-        String getDistance = baseApiUrl + "?point=" + emergencyLatitude + "%2C" + emergencyLongitude + "&point=" + hospitalLatitude + "%2C" + hospitalLongitude + "&locale=en&instructions=false";
+        String getDistance = baseApiUrl + "?point=" + emergencyLatitude + "," + emergencyLongitude + "&point=" + hospitalLatitude + "," + hospitalLongitude + "&locale=en&instructions=false";
 
         RestTemplate restTemplate = new RestTemplate();
-		ResponseEntity<Object> response = restTemplate.exchange(
-                getDistance, 
-				HttpMethod.GET, 
-				null,
-				new ParameterizedTypeReference<Object>() {}
-			);
-		
-        log.debug("Get distance between hospital and emergency call " + response.getStatusCode().toString());
 
-        Integer distance = JsonPath.read(response, "$['paths'][0]['distance']");
-        
+        JSONObject response = restTemplate.getForObject(getDistance, JSONObject.class );
+
+        log.debug("Get distance between hospital and emergency call " + response.toString());
+
+        Double distanceDouble = JsonPath.read(response, "$['paths'][0]['distance']");
+
+        Integer distance = distanceDouble.intValue();
+
 		log.debug("Distance between hospital and emergency is " + distance);
 
         return distance;

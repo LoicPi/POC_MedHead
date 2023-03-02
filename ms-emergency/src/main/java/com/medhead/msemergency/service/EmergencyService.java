@@ -1,7 +1,7 @@
 package com.medhead.msemergency.service;
 
-import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -36,7 +36,7 @@ public class EmergencyService {
      */
     public NearestHospitalReservation getNearestHospitalReservation(Emergency emergency) {
         
-        ArrayList<Hospital> hospitals = hospitalProxy.getAvailableHospitalsBySpecialist(emergency.getSpeciality());
+        List<Hospital> hospitals = hospitalProxy.getAvailableHospitalsBySpecialist(emergency.getSpeciality());
 
         Hospital nearestHospital = getNearestHospital(emergency, hospitals);
 
@@ -53,9 +53,10 @@ public class EmergencyService {
      * @param hospitals The list of hospitals
      * @return The nearest hospital of the emergency
      */
-    public Hospital getNearestHospital(Emergency emergency, ArrayList<Hospital> hospitals) {
+    private Hospital getNearestHospital(Emergency emergency, List<Hospital> hospitals) {
 
         for (Hospital hospital : hospitals) {
+            System.out.println("On recherche la distance avec l'hopital : "+hospital.getName() );
             Integer distance = emergencyProxy.getDistanceBetweenHospitalAndEmergency(emergency.getLatitude(), emergency.getLongitude(), hospital.getLatitude(), hospital.getLongitude());
 
             hospital.setDistance(distance);
@@ -68,7 +69,7 @@ public class EmergencyService {
         return nearestHospital;
     }
 
-    public NearestHospitalReservation createNearestHospitalReservation(Hospital nearestHospital, String reservation) {
+    private NearestHospitalReservation createNearestHospitalReservation(Hospital nearestHospital, String reservation) {
 
         NearestHospitalReservation nearestHospitalReservation = new NearestHospitalReservation();
         
