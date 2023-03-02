@@ -13,7 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 public class BedAvailableService {
 
     /**
-     * Function to generate a random number for bed avaibility reservation.
+     * Function to generate a random number for bed available reservation.
      * @param hospitalId
      * @return String reservation number
      */
@@ -28,6 +28,22 @@ public class BedAvailableService {
         log.debug("The number of bed reservation is " + numberBedAvailable + "for hospital number " + hospitalId);
 
         return numberBedAvailable;
+    }
+
+    /**
+     * Function to return a random number for bed available in hospital request
+     * @param hospitalId the id of hospital request
+     * @return Integer number of bed available
+     */
+    public Integer getBedAvailableByHospitalId(Integer hospitalId) {
+
+        Random rand = new Random();
+
+        Integer bedAvailableForHospital = rand.nextInt(6);
+
+        log.debug("The number of bed available is " + bedAvailableForHospital + "for hospital number " + hospitalId);
+
+        return bedAvailableForHospital;
     }
     
 }

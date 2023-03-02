@@ -1,6 +1,7 @@
 package com.medhead.msbedavailable.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
@@ -22,4 +23,15 @@ public class BedAvailableController {
     public String savedBedAvailable(@PathVariable(value="hospitalId") Integer hospitalId) {
         return bedAvailableService.savedBedAvailable(hospitalId);
     }
+
+    /**
+     * Function Get the number of bed available by hsopital id to add a bed available
+     * @param hospitalId the id of the hospital concern by the bed available
+     * @return the number of bed available for hospital request
+     */
+    @GetMapping("/getBedAvailableByHospitalId/{hospitalId}")
+    public Integer getBedAvailableByHospitalId(@PathVariable(value="hospitalId") Integer hospitalId) {
+        return bedAvailableService.getBedAvailableByHospitalId(hospitalId);
+    }
+
 }
