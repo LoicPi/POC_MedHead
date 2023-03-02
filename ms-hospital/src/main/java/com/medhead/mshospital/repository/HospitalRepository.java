@@ -4,10 +4,13 @@ import java.io.FileReader;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.List;
 
 import org.json.simple.*;
 import org.json.simple.parser.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Repository;
 
 import com.medhead.mshospital.model.Hospital;
@@ -18,42 +21,25 @@ public class HospitalRepository {
 
     @Autowired
     private SpecialityRepository specialityRepository;
-    
-    /**
-     * Function to get hospitals by json file and return a list of hospitals with beds avaibilties for the speciality requested.
-     * @param specialityRequest The speciality requested.
-     * @return The list of hospitals with beds avaibilties for the speciality requested.
-     */
-    public ArrayList<Hospital> getAvailableHospitalsWithSpeciality(String specialityRequest) {
 
-        ArrayList<Hospital> availableHospitalsWithSpeciality = new ArrayList<Hospital>();
-
-        ArrayList<Hospital> hospitals = getHospitals();
-        
-        for(Hospital hospital : hospitals) {
-            for(Speciality speciality : hospital.getSpecialties()) {
-                if (specialityRequest.equals(speciality.getName())) {
-                    availableHospitalsWithSpeciality.add(hospital);
-                }
-            }
-        }
-
-        return availableHospitalsWithSpeciality;
-    }
+    @Value("${pathToHospitalJsonFile}")
+    private Resource resourceHospitalJsonFile;
 
     /**
      * Function to get the list of hospitals by json file.
      * Select the hospital with beds available.
-     * @return The list of hospitals with beds avaibilties.
+     * @return The list of hospitals with beds available.
      */
-    public ArrayList<Hospital> getHospitals() {
+    public List<Hospital> getHospitals() {
 
-        ArrayList<Hospital> hospitals = new ArrayList<Hospital>();
+        List<Hospital> hospitals = new ArrayList<Hospital>();
 
 		JSONParser jsonParser = new JSONParser();
 
         try {
-            Object obj = jsonParser.parse(new FileReader("ms-hospital/src/main/resources/data/Hospitals.json"));
+            File fileHospitalJson = resourceHospitalJsonFile.getFile();
+
+            Object obj = jsonParser.parse(new FileReader(fileHospitalJson));
 
             JSONObject jsonObject = (JSONObject) obj;
 
@@ -75,8 +61,7 @@ public class HospitalRepository {
 				    hospital.setAddress((String)hospitalJson.get("Address"));
 				    hospital.setLatitude((String)hospitalJson.get("Latitude"));
 				    hospital.setLongitude((String)hospitalJson.get("Longitude"));
-				    hospital.setBedAvailable((Integer)Integer.valueOf((String)hospitalJson.get("bedAvailable")));
-                    ArrayList<Speciality> specialtiesList = specialityRepository.givenListOfRandomArrayOfSpeciality();
+                    List<Speciality> specialtiesList = specialityRepository.givenListOfRandomArrayOfSpeciality();
                     hospital.setSpecialties(specialtiesList);
 				    hospitals.add(hospital);
                 }

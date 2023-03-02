@@ -1,12 +1,16 @@
 package com.medhead.mshospital.repository;
 
+import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 import java.util.Iterator;
 
 import org.json.simple.*;
 import org.json.simple.parser.*;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Repository;
 
 import com.medhead.mshospital.model.Speciality;
@@ -14,18 +18,46 @@ import com.medhead.mshospital.model.Speciality;
 @Repository
 public class SpecialityRepository {
 
+    @Value("${pathToSpecialtiesJsonFile}")
+    private Resource resourceSpecialtiesJsonFile;
+
+    /**
+     * Function to return a list of random specialties
+     * @return random list of specialties
+     */
+    public List<Speciality> givenListOfRandomArrayOfSpeciality() {
+
+        Random rand = new Random();
+
+        List<Speciality> givenList = getAllSpecialties();
+
+        List<Speciality> specialitiesList = new ArrayList<Speciality>();
+
+        int numberOfElements = rand.nextInt(3)+1;
+
+        for (int i = 0; i < numberOfElements; i++) {
+            int randomIndex = rand.nextInt(givenList.size());
+            Speciality randomSpeciality = givenList.get(randomIndex);
+            specialitiesList.add(randomSpeciality);
+        }
+
+        return specialitiesList;
+    }
+
     /**
      * Function to get all the specialties by json file
      * @return the list of all specialties
     */
-    public ArrayList<Speciality> getAllSpecialties() {
+    private List<Speciality> getAllSpecialties() {
 
-        ArrayList<Speciality> specialties = new ArrayList<Speciality>();
+        List<Speciality> specialties = new ArrayList<Speciality>();
 
 		JSONParser jsonParser = new JSONParser();
 
         try {
-            Object obj = jsonParser.parse(new FileReader("ms-hospital/src/main/resources/data/Specialties.json"));
+            File fileSpecialtiesJson = resourceSpecialtiesJsonFile.getFile();
+
+            Object obj = jsonParser.parse(new FileReader(fileSpecialtiesJson));
 
             JSONObject jsonObject = (JSONObject) obj;
 
@@ -53,27 +85,6 @@ public class SpecialityRepository {
         return specialties;
     }
 
-    /**
-     * Function to return a list of random specialties
-     * @return random list of specialties
-     */
-    public ArrayList<Speciality>givenListOfRandomArrayOfSpeciality() {
-        
-        Random rand = new Random();
-        
-        ArrayList<Speciality> givenList = getAllSpecialties();
 
-        ArrayList<Speciality> specialitiesList = new ArrayList<Speciality>();
-    
-        int numberOfElements = rand.nextInt(3)+1;
-    
-        for (int i = 0; i < numberOfElements; i++) {
-            int randomIndex = rand.nextInt(givenList.size());
-            Speciality randomSpeciality = givenList.get(randomIndex);
-            specialitiesList.add(randomSpeciality);
-        }
 
-        return specialitiesList;
-    }
-    
 }

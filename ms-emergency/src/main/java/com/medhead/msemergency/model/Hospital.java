@@ -1,8 +1,8 @@
 package com.medhead.msemergency.model;
 
-import java.util.ArrayList;
-
 import lombok.Data;
+
+import java.util.List;
 
 @Data
 public class Hospital {
@@ -17,7 +17,7 @@ public class Hospital {
 
     private String longitude;
 
-    private ArrayList<Speciality> specialties;
+    private List<Speciality> specialties;
 
     private Integer bedAvaibility;
 

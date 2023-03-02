@@ -1,6 +1,6 @@
 package com.medhead.mshospital.model;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import lombok.Data;
 
@@ -17,7 +17,7 @@ public class Hospital {
 
     private String longitude;
 
-    private ArrayList<Speciality> specialties;
+    private List<Speciality> specialties;
     
     private Integer bedAvailable;
 

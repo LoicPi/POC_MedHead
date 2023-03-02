@@ -1,6 +1,6 @@
 package com.medhead.mshospital.controller;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,8 +22,7 @@ public class HospitalController {
      * @return list of hospitals with beds available for the specified speciality.
      */
     @GetMapping("/availablehospitalswithspecialist/{specialityName}")
-    public ArrayList<Hospital> getAvailableHospitalsWithSpeciality(@PathVariable(value="specialityName") String specialityRequest) {
-        
+    public List<Hospital> getAvailableHospitalsWithSpeciality(@PathVariable(value="specialityName") String specialityRequest) {
         return hospitalService.getAvailableHospitalsWithSpeciality(specialityRequest);
     }
 
