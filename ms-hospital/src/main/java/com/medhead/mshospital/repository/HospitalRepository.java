@@ -50,21 +50,16 @@ public class HospitalRepository {
             while (iterator.hasNext()) {
                 JSONObject hospitalJson = (JSONObject)iterator.next();
 
-                Integer bedAvailable = Integer.valueOf((String)hospitalJson.get("BedAvailable"));
+                Hospital hospital = new Hospital();
 
-                if (bedAvailable != 0) {
-
-				    Hospital hospital = new Hospital();
-
-				    hospital.setId((Integer)Integer.valueOf((String)hospitalJson.get("Id")));
-				    hospital.setName((String)hospitalJson.get("Name"));
-				    hospital.setAddress((String)hospitalJson.get("Address"));
-				    hospital.setLatitude((String)hospitalJson.get("Latitude"));
-				    hospital.setLongitude((String)hospitalJson.get("Longitude"));
-                    List<Speciality> specialtiesList = specialityRepository.givenListOfRandomArrayOfSpeciality();
-                    hospital.setSpecialties(specialtiesList);
-				    hospitals.add(hospital);
-                }
+                hospital.setId((Integer)Integer.valueOf((String)hospitalJson.get("Id")));
+				hospital.setName((String)hospitalJson.get("Name"));
+				hospital.setAddress((String)hospitalJson.get("Address"));
+				hospital.setLatitude((String)hospitalJson.get("Latitude"));
+				hospital.setLongitude((String)hospitalJson.get("Longitude"));
+                List<Speciality> specialtiesList = specialityRepository.givenListOfRandomArrayOfSpeciality();
+                hospital.setSpecialties(specialtiesList);
+				hospitals.add(hospital);
             }
         } catch (Exception e) {
             e.printStackTrace();
