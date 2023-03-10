@@ -1,7 +1,6 @@
 package com.medhead.msemergency.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
@@ -21,14 +20,13 @@ public class BedAvailableProxy {
 	public String savedBedAvailable(Integer nearestHospitalId) {
 
 		String baseApiUrl = customProperties.getApiUrlBedAvailable();
-		String savedBedAvailable = baseApiUrl + "/savedBedAvailable";
+		String savedBedAvailable = baseApiUrl + "/savedBedAvailable/" + nearestHospitalId;
 
 		RestTemplate restTemplate = new RestTemplate();
-		HttpEntity<Integer> request = new HttpEntity<Integer>(nearestHospitalId);
 		ResponseEntity<String> response = restTemplate.exchange(
 				savedBedAvailable,
-				HttpMethod.POST, 
-				request,
+				HttpMethod.POST,
+				null,
 				String.class
 			);
 		
