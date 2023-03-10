@@ -3,6 +3,9 @@ package com.medhead.msemergency.service;
 import java.util.Collections;
 import java.util.List;
 
+import com.medhead.msemergency.dto.NearestHospitalReservationTransform;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -19,6 +22,8 @@ import lombok.Data;
 @Service
 public class EmergencyService {
 
+    private final Logger logger = LoggerFactory.getLogger(EmergencyService.class);
+
     @Autowired
     private HospitalProxy hospitalProxy;
 
@@ -27,6 +32,9 @@ public class EmergencyService {
 
     @Autowired
     private EmergencyProxy emergencyProxy;
+
+    @Autowired
+    private NearestHospitalReservationTransform nearestHospitalReservationTransform;
     
 
     /**
@@ -40,9 +48,13 @@ public class EmergencyService {
 
         Hospital nearestHospital = getNearestHospital(emergency, hospitals);
 
+        logger.info("L'hopital le plus proche est : " + nearestHospital.getName());
+
         String reservation = bedAvailableProxy.savedBedAvailable(nearestHospital.getId());
 
-        NearestHospitalReservation nearestHospitalReservation = createNearestHospitalReservation(nearestHospital, reservation);
+        logger.info("Le numéro de réservation est : " + reservation);
+
+        NearestHospitalReservation nearestHospitalReservation = nearestHospitalReservationTransform.transformNearestHospitalToNearestHospitalReservation(nearestHospital, reservation);
 
         return nearestHospitalReservation;
     }
@@ -56,9 +68,7 @@ public class EmergencyService {
     private Hospital getNearestHospital(Emergency emergency, List<Hospital> hospitals) {
 
         for (Hospital hospital : hospitals) {
-            System.out.println("On recherche la distance avec l'hopital : "+hospital.getName() );
             Integer distance = emergencyProxy.getDistanceBetweenHospitalAndEmergency(emergency.getLatitude(), emergency.getLongitude(), hospital.getLatitude(), hospital.getLongitude());
-
             hospital.setDistance(distance);
         }
 
@@ -68,17 +78,4 @@ public class EmergencyService {
 
         return nearestHospital;
     }
-
-    private NearestHospitalReservation createNearestHospitalReservation(Hospital nearestHospital, String reservation) {
-
-        NearestHospitalReservation nearestHospitalReservation = new NearestHospitalReservation();
-        
-        nearestHospitalReservation.setName(nearestHospital.getName());
-        nearestHospitalReservation.setLatitude(nearestHospital.getLatitude());
-        nearestHospitalReservation.setLongitude(nearestHospital.getLongitude());
-        nearestHospitalReservation.setReservation(reservation);
-
-        return nearestHospitalReservation;
-    }
-
 }
