@@ -4,13 +4,10 @@ import com.medhead.mshospital.CustomProperties;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
-import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Component;
 import org.springframework.web.client.RestTemplate;
-
-import java.util.List;
 
 @Slf4j
 @Component
@@ -22,10 +19,9 @@ public class BedAvailableProxy {
     public Integer getBedAvailableByHospitalId(Integer hospitalId) {
 
         String baseApiUrl = customProperties.getApiUrlBedAvailable();
-        String savedBedAvailable = baseApiUrl + "/getBedAvailableByHospitalId";
+        String savedBedAvailable = baseApiUrl + "/getBedAvailableByHospitalId/" + hospitalId;
 
         RestTemplate restTemplate = new RestTemplate();
-        HttpEntity<Integer> request = new HttpEntity<Integer>(hospitalId);
         ResponseEntity<Integer> response = restTemplate.exchange(
                 savedBedAvailable,
                 HttpMethod.GET,

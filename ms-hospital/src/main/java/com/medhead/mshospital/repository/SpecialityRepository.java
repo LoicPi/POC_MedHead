@@ -7,10 +7,10 @@ import java.util.List;
 import java.util.Random;
 import java.util.Iterator;
 
+import com.medhead.mshospital.CustomProperties;
 import org.json.simple.*;
 import org.json.simple.parser.*;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.medhead.mshospital.model.Speciality;
@@ -18,8 +18,8 @@ import com.medhead.mshospital.model.Speciality;
 @Repository
 public class SpecialityRepository {
 
-    @Value("${pathToSpecialtiesJsonFile}")
-    private Resource resourceSpecialtiesJsonFile;
+    @Autowired
+    private CustomProperties customProperties;
 
     /**
      * Function to return a list of random specialties
@@ -55,9 +55,9 @@ public class SpecialityRepository {
 		JSONParser jsonParser = new JSONParser();
 
         try {
-            File fileSpecialtiesJson = resourceSpecialtiesJsonFile.getFile();
+            String currentPath = new File(".").getCanonicalPath();
 
-            Object obj = jsonParser.parse(new FileReader(fileSpecialtiesJson));
+            Object obj = jsonParser.parse(new FileReader(currentPath + customProperties.getPathToSpecialtiesJsonFile()));
 
             JSONObject jsonObject = (JSONObject) obj;
 

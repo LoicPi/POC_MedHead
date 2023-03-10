@@ -11,7 +11,7 @@ public class CustomProperties {
 
     private String apiUrlBedAvailable;
 
-    private String pathToHospitalJsonFile;
+    private String pathToHospitalsJsonFile;
 
     private String pathToSpecialtiesJsonFile;
 

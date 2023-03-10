@@ -6,11 +6,10 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
+import com.medhead.mshospital.CustomProperties;
 import org.json.simple.*;
 import org.json.simple.parser.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Repository;
 
 import com.medhead.mshospital.model.Hospital;
@@ -22,8 +21,8 @@ public class HospitalRepository {
     @Autowired
     private SpecialityRepository specialityRepository;
 
-    @Value("${pathToHospitalJsonFile}")
-    private Resource resourceHospitalJsonFile;
+    @Autowired
+    private CustomProperties customProperties;
 
     /**
      * Function to get the list of hospitals by json file.
@@ -37,9 +36,9 @@ public class HospitalRepository {
 		JSONParser jsonParser = new JSONParser();
 
         try {
-            File fileHospitalJson = resourceHospitalJsonFile.getFile();
+            String currentPath = new File(".").getCanonicalPath();
 
-            Object obj = jsonParser.parse(new FileReader(fileHospitalJson));
+            Object obj = jsonParser.parse(new FileReader(currentPath + customProperties.getPathToHospitalsJsonFile()));
 
             JSONObject jsonObject = (JSONObject) obj;
 
