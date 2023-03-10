@@ -16,4 +16,6 @@ public class CustomProperties {
 
     private String apiUrlDistance;
 
+    private String apiUrlAuthorization;
+
 }
