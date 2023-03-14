@@ -2,6 +2,8 @@ package com.medhead.mshospital.controller;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -13,6 +15,8 @@ import com.medhead.mshospital.model.Hospital;
 @RestController
 public class HospitalController {
 
+    private final Logger logger = LoggerFactory.getLogger(HospitalController.class);
+
     @Autowired
     private HospitalService hospitalService;
 
@@ -23,7 +27,13 @@ public class HospitalController {
      */
     @GetMapping("/availablehospitalswithspecialist/{specialityName}")
     public List<Hospital> getAvailableHospitalsWithSpeciality(@PathVariable(value="specialityName") String specialityRequest) {
-        return hospitalService.getAvailableHospitalsWithSpeciality(specialityRequest);
+        logger.info("Demande de la liste des hôpitaux pour la spécialité " + specialityRequest);
+
+        List<Hospital> hospitalswithSpecialityRequestAndBedAvailable = hospitalService.getAvailableHospitalsWithSpeciality(specialityRequest);
+
+        logger.info("On a retrouvé " + hospitalswithSpecialityRequestAndBedAvailable.size() + " hopital/hopitaux avec la spécialité " + specialityRequest + " et ayant des lits disponibles.");
+
+        return hospitalswithSpecialityRequestAndBedAvailable;
     }
 
 }
