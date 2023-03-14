@@ -5,6 +5,8 @@ import java.util.List;
 
 import com.medhead.mshospital.model.Speciality;
 import com.medhead.mshospital.repository.BedAvailableProxy;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +18,8 @@ import lombok.Data;
 @Data
 @Service
 public class HospitalService {
+
+    private final Logger logger = LoggerFactory.getLogger(HospitalService.class);
 
     @Autowired
     private HospitalRepository hospitalRepository;
@@ -32,11 +36,17 @@ public class HospitalService {
         
         List<Hospital> hospitals = hospitalRepository.getHospitals();
 
+        logger.info("On a " + hospitals.size() + " hôpitaux.");
+
         List<Hospital> hospitalsWithSpeciality = getHospitalsWithSpeciality(hospitals, specialityRequest);
+
+        logger.info("On a " + hospitalsWithSpeciality.size() + " hôpitaux possibles avec la spécialité.");
 
         List<Hospital> availableHospitalsWithSpeciality = getBedAvailableForListOfHospitals(hospitalsWithSpeciality);
 
-        return hospitals;
+        logger.info("On a " + availableHospitalsWithSpeciality.size() + " hôpitaux possibles avec la spécialité et des lits disponibles.");
+
+        return availableHospitalsWithSpeciality;
     }
 
     /**
@@ -70,10 +80,11 @@ public class HospitalService {
 
         for (Hospital hospital : hospitalsWithSpeciality) {
             Integer bedAvailable = bedAvailableProxy.getBedAvailableByHospitalId(hospital.getId());
-
-            hospital.setBedAvailable(bedAvailable);
-
-            availableHospitalsWithSpeciality.add(hospital);
+            logger.info("L'hôpital n°" + hospital.getId() + " a " + bedAvailable + " lit(s) disponible(s).");
+            if (bedAvailable != 0) {
+                hospital.setBedAvailable(bedAvailable);
+                availableHospitalsWithSpeciality.add(hospital);
+            }
         }
 
         return availableHospitalsWithSpeciality;
