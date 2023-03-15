@@ -1,8 +1,7 @@
 package com.medhead.msauthorization.configuration;
 
 import jakarta.servlet.http.HttpServletResponse;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -22,12 +21,11 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
 
 
+@Slf4j
 @Configuration
 @EnableWebSecurity
 @EnableMethodSecurity
 public class WebSecurityConfig {
-
-    private final Logger logger = LoggerFactory.getLogger(WebSecurityConfig.class);
 
     @Autowired
     private JwtRequestFilter jwtRequestFilter;
@@ -41,7 +39,7 @@ public class WebSecurityConfig {
     public AuthenticationManager authenticationManager(HttpSecurity http, BCryptPasswordEncoder bCryptPasswordEncoder,
                                                        UserDetailsService userDetailService) throws Exception {
 
-        logger.info("Enter in authenticationManager");
+        log.info("Enter in authenticationManager");
         return http.getSharedObject(AuthenticationManagerBuilder.class)
                 .userDetailsService(userDetailService)
                 .passwordEncoder(bCryptPasswordEncoder)
@@ -50,7 +48,7 @@ public class WebSecurityConfig {
 
     @Bean
     public SecurityFilterChain chain(HttpSecurity httpSecurity) throws Exception {
-        logger.info("Enter in filterChain");
+        log.info("Enter in filterChain");
         // We don't need CSRF for this example
         httpSecurity = httpSecurity.cors().and().csrf().disable();
 

@@ -3,8 +3,7 @@ package com.medhead.msauthorization.controller;
 import com.medhead.msauthorization.configuration.JwtTokenUtil;
 import com.medhead.msauthorization.model.UserDAO;
 
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
@@ -16,7 +15,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
-
+@Slf4j
 @RestController
 public class AuthorizationController {
 
@@ -25,8 +24,6 @@ public class AuthorizationController {
 
     @Autowired
     private JwtTokenUtil jwtTokenUtil;
-
-    Logger logger = LoggerFactory.getLogger(AuthorizationController.class);
 
     @PostMapping (value = "/login")
     public ResponseEntity<String> login (@RequestBody UserDAO userDAO) {
@@ -38,14 +35,14 @@ public class AuthorizationController {
 
             String token = jwtTokenUtil.generateToken(authenticatedUser);
 
-            logger.info("Token is : " + token);
+            log.info("Token is : " + token);
 
             return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, token).body(authenticatedUser.getUsername() + " successfully authenticated");
         } catch (BadCredentialsException ex) {
 
-            logger.info("User is : " + userDAO.getPassword());
+            log.info("User is : " + userDAO.getPassword());
 
-            logger.info("User is : " + userDAO.getUsername());
+            log.info("User is : " + userDAO.getUsername());
 
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).build();
         }

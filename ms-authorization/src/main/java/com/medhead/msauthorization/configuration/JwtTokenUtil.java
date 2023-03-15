@@ -2,8 +2,7 @@ package com.medhead.msauthorization.configuration;
 
 import com.medhead.msauthorization.CustomProperties;
 import io.jsonwebtoken.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
@@ -14,6 +13,7 @@ import java.util.Map;
 
 import static java.lang.String.format;
 
+@Slf4j
 @Component
 public class JwtTokenUtil implements Serializable {
 
@@ -21,8 +21,6 @@ public class JwtTokenUtil implements Serializable {
 
     @Autowired
     private CustomProperties customProperties;
-
-    private final Logger logger = LoggerFactory.getLogger(JwtTokenUtil.class);
 
     //retrieve username from jwt token
 	public String getUsernameFromToken(String token) {
@@ -89,15 +87,15 @@ public class JwtTokenUtil implements Serializable {
             Jwts.parser().setSigningKey(customProperties.getJwtSecret()).parseClaimsJws(token);
             return true;
         } catch (SignatureException ex) {
-            logger.error("Invalid JWT signature - {}", ex.getMessage());
+            log.error("Invalid JWT signature - {}", ex.getMessage());
         } catch (MalformedJwtException ex) {
-            logger.error("Invalid JWT token - {}", ex.getMessage());
+            log.error("Invalid JWT token - {}", ex.getMessage());
         } catch (ExpiredJwtException ex) {
-            logger.error("Expired JWT token - {}", ex.getMessage());
+            log.error("Expired JWT token - {}", ex.getMessage());
         } catch (UnsupportedJwtException ex) {
-            logger.error("Unsupported JWT token - {}", ex.getMessage());
+            log.error("Unsupported JWT token - {}", ex.getMessage());
         } catch (IllegalArgumentException ex) {
-            logger.error("JWT claims string is empty - {}", ex.getMessage());
+            log.error("JWT claims string is empty - {}", ex.getMessage());
         }
         return false;
     }
