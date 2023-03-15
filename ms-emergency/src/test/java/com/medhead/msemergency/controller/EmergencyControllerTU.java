@@ -10,8 +10,6 @@ import com.medhead.msemergency.service.EmergencyService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import org.mockito.Mockito;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
@@ -42,14 +40,14 @@ public class EmergencyControllerTU {
 
     @MockBean
     private AuthorizationProxy authorizationProxyMock;
-
-    private String speciality_name_test = "Médecine d'urgence";
     private Emergency emergency_test = new Emergency();
 
     private NearestHospitalReservation nearestHospitalReservation = new NearestHospitalReservation();
 
     @BeforeEach
     public void setup_test() {
+        String speciality_name_test = "Médecine d'urgence";
+
         emergency_test.setLatitude("51.507351");
         emergency_test.setLongitude("-0.127758");
         emergency_test.setSpeciality(speciality_name_test);
@@ -62,7 +60,7 @@ public class EmergencyControllerTU {
 
     @Test
     public void test_getEmergency_user_authenticate() throws Exception {
-        when(emergencyServiceMock.getNearestHospitalReservation(Mockito.any(Emergency.class))).thenReturn(nearestHospitalReservation);
+        when(emergencyServiceMock.getNearestHospitalReservation(emergency_test)).thenReturn(nearestHospitalReservation);
 
         mockMvc.perform(get("/emergency")
                         .with(user(TEST_USER_ID))

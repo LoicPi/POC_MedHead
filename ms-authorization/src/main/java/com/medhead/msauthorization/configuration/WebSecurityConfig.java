@@ -27,9 +27,6 @@ import org.springframework.web.filter.CorsFilter;
 @EnableMethodSecurity
 public class WebSecurityConfig {
 
-    @Autowired
-    private JwtRequestFilter jwtRequestFilter;
-
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
@@ -59,13 +56,7 @@ public class WebSecurityConfig {
                 })).and();
 
         httpSecurity.authorizeHttpRequests()
-                // don't authenticate this particular request
-                .requestMatchers("/login").permitAll()
-                // all other requests need to be authenticated
-                .anyRequest().authenticated();
-
-        // Add a filter to validate the tokens with every request
-        httpSecurity.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+                .anyRequest().permitAll();
 
         return httpSecurity.build();
     }

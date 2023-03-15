@@ -50,18 +50,6 @@ public class EmergencyServiceTU {
 
     private Emergency emergency_test = new Emergency();
 
-    private Speciality speciality_test_0 = new Speciality();
-
-    private Speciality speciality_test_1 = new Speciality();
-
-    private Speciality speciality_test_2 = new Speciality();
-
-    private Speciality speciality_test_3 = new Speciality();
-
-    private List < Speciality> specialities_0 = new ArrayList<Speciality>();
-
-    private List < Speciality> specialities_1 = new ArrayList<Speciality>();
-
     private Hospital hospital_test_0 = new Hospital();
 
     private Hospital hospital_test_1 = new Hospital();
@@ -70,6 +58,18 @@ public class EmergencyServiceTU {
 
     @BeforeEach
     public void setup() {
+
+        Speciality speciality_test_0 = new Speciality();
+
+        Speciality speciality_test_1 = new Speciality();
+
+        Speciality speciality_test_2 = new Speciality();
+
+        Speciality speciality_test_3 = new Speciality();
+
+        List < Speciality> specialities_0 = new ArrayList<Speciality>();
+
+        List < Speciality> specialities_1 = new ArrayList<Speciality>();
 
         emergency_test.setLatitude("51.507351");
         emergency_test.setLongitude("-0.127758");

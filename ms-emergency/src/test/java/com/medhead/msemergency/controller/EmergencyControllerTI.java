@@ -68,18 +68,6 @@ public class EmergencyControllerTI {
 
     private Emergency emergency_test = new Emergency();
 
-    private Speciality speciality_test_0 = new Speciality();
-
-    private Speciality speciality_test_1 = new Speciality();
-
-    private Speciality speciality_test_2 = new Speciality();
-
-    private Speciality speciality_test_3 = new Speciality();
-
-    private List < Speciality> specialities_0 = new ArrayList<Speciality>();
-
-    private List < Speciality> specialities_1 = new ArrayList<Speciality>();
-
     private Hospital hospital_test_0 = new Hospital();
 
     private Hospital hospital_test_1 = new Hospital();
@@ -90,6 +78,18 @@ public class EmergencyControllerTI {
 
     @BeforeEach
     public void test_setup() {
+        Speciality speciality_test_0 = new Speciality();
+
+        Speciality speciality_test_1 = new Speciality();
+
+        Speciality speciality_test_2 = new Speciality();
+
+        Speciality speciality_test_3 = new Speciality();
+
+        List < Speciality> specialities_0 = new ArrayList<Speciality>();
+
+        List < Speciality> specialities_1 = new ArrayList<Speciality>();
+
         emergency_test.setLatitude("51.507351");
         emergency_test.setLongitude("-0.127758");
         emergency_test.setSpeciality(speciality_name_test);
@@ -160,12 +160,6 @@ public class EmergencyControllerTI {
 
     @Test
     public void test_getEmergency_user_not_authenticate() throws Exception {
-        when(hospitalProxyMock.getAvailableHospitalsBySpecialist(speciality_name_test)).thenReturn(hospitals_test);
-        when(emergencyProxyMock.getDistanceBetweenHospitalAndEmergency(emergency_test.getLatitude(), emergency_test.getLongitude(), hospital_test_0.getLatitude(), hospital_test_0.getLongitude())).thenReturn(1000);
-        when(emergencyProxyMock.getDistanceBetweenHospitalAndEmergency(emergency_test.getLatitude(), emergency_test.getLongitude(), hospital_test_1.getLatitude(), hospital_test_1.getLongitude())).thenReturn(2000);
-        when(bedAvailableProxyMock.savedBedAvailable(hospital_test_0.getId())).thenReturn(reservation);
-        when(nearestHospitalReservationTransform.transformNearestHospitalToNearestHospitalReservation(hospital_test_0, reservation)).thenReturn(nearestHospitalReservation);
-
         mockMvc.perform(get("/emergency")
                         .contentType(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(emergency_test))

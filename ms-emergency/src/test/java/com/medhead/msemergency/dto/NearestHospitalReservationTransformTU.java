@@ -22,20 +22,21 @@ public class NearestHospitalReservationTransformTU {
     @InjectMocks
     private NearestHospitalReservationTransform nearestHospitalReservationTransform;
 
-    private Speciality speciality_test_0 = new Speciality();
-
-    private Speciality speciality_test_1 = new Speciality();
-
-    private Speciality speciality_test_2 = new Speciality();
-
-    private List< Speciality> specialities_0 = new ArrayList<Speciality>();
-
     private Hospital hospital_test_0 = new Hospital();
 
     private String reservation = "123456789";
 
     @BeforeEach
     public void setup() {
+
+        Speciality speciality_test_0 = new Speciality();
+
+        Speciality speciality_test_1 = new Speciality();
+
+        Speciality speciality_test_2 = new Speciality();
+
+        List< Speciality> specialities_0 = new ArrayList<Speciality>();
+
         speciality_test_0.setId(17);
         speciality_test_0.setName("Médecine d'urgence");
 
