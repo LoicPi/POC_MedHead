@@ -58,7 +58,7 @@ public class SpecialityRepository {
 		JSONParser jsonParser = new JSONParser();
 
         try {
-            String currentPath = new File(".").getCanonicalPath();
+            String currentPath = new File(".").getAbsolutePath();
 
             if (currentPath.contains("/ms-hospital")) {
                 currentPath = currentPath.replaceFirst("/ms-hospital", "");
