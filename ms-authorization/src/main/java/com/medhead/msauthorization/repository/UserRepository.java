@@ -26,7 +26,11 @@ public class UserRepository {
         JSONParser jsonParser = new JSONParser();
 
         try {
-            String currentPath = new File(".").getCanonicalPath();
+            String currentPath = new File(".").getAbsolutePath();
+
+            if (currentPath.contains("/ms-authorization")) {
+                currentPath = currentPath.replaceFirst("/ms-authorization", "");
+            }
 
             Object obj = jsonParser.parse(new FileReader(currentPath + customProperties.getPathToUsersJsonFile()));
 
