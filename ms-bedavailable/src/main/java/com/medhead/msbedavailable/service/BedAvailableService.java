@@ -14,18 +14,16 @@ public class BedAvailableService {
 
     /**
      * Function to generate a random number for bed available reservation.
-     * @param hospitalId
+     * @param hospitalId the id of hospital request
      * @return String reservation number
      */
     public String savedBedAvailable(Integer hospitalId) {
 
         Random rand = new Random();
-        
-        Integer reservation = rand.nextInt(100000000);
 
-        String numberBedAvailable = String.valueOf(reservation);
+        String numberBedAvailable = String.format("%09d", rand.nextInt(1000000000));
 
-        log.debug("The number of bed reservation is " + numberBedAvailable + "for hospital number " + hospitalId);
+        log.info("The number of bed reservation is " + numberBedAvailable + " for hospital number " + hospitalId);
 
         return numberBedAvailable;
     }
@@ -41,7 +39,7 @@ public class BedAvailableService {
 
         Integer bedAvailableForHospital = rand.nextInt(6);
 
-        log.debug("The number of bed available is " + bedAvailableForHospital + "for hospital number " + hospitalId);
+        log.info("The number of bed available is " + bedAvailableForHospital + "for hospital number " + hospitalId);
 
         return bedAvailableForHospital;
     }
