@@ -5,8 +5,7 @@ import java.util.List;
 
 import com.medhead.mshospital.model.Speciality;
 import com.medhead.mshospital.repository.BedAvailableProxy;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,11 +14,10 @@ import com.medhead.mshospital.repository.HospitalRepository;
 
 import lombok.Data;
 
+@Slf4j
 @Data
 @Service
 public class HospitalService {
-
-    private final Logger logger = LoggerFactory.getLogger(HospitalService.class);
 
     @Autowired
     private HospitalRepository hospitalRepository;
@@ -36,15 +34,15 @@ public class HospitalService {
         
         List<Hospital> hospitals = hospitalRepository.getHospitals();
 
-        logger.info("On a " + hospitals.size() + " hôpitaux.");
+        log.debug("We found " + hospitals.size() + " hôpitaux.");
 
         List<Hospital> hospitalsWithSpeciality = getHospitalsWithSpeciality(hospitals, specialityRequest);
 
-        logger.info("On a " + hospitalsWithSpeciality.size() + " hôpitaux possibles avec la spécialité.");
+        log.debug("We found " + hospitalsWithSpeciality.size() + " hospital(s) with the speciality " + specialityRequest );
 
         List<Hospital> availableHospitalsWithSpeciality = getBedAvailableForListOfHospitals(hospitalsWithSpeciality);
 
-        logger.info("On a " + availableHospitalsWithSpeciality.size() + " hôpitaux possibles avec la spécialité et des lits disponibles.");
+        log.debug("We found " + availableHospitalsWithSpeciality.size() + " hospital(s) with the speciality request and beds available.");
 
         return availableHospitalsWithSpeciality;
     }
@@ -80,7 +78,7 @@ public class HospitalService {
 
         for (Hospital hospital : hospitalsWithSpeciality) {
             Integer bedAvailable = bedAvailableProxy.getBedAvailableByHospitalId(hospital.getId());
-            logger.info("L'hôpital n°" + hospital.getId() + " a " + bedAvailable + " lit(s) disponible(s).");
+            log.debug("HospitalId n°" + hospital.getId() + " have " + bedAvailable + " bed(s) available.");
             if (bedAvailable != 0) {
                 hospital.setBedAvailable(bedAvailable);
                 availableHospitalsWithSpeciality.add(hospital);

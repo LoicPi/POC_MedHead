@@ -8,6 +8,7 @@ import java.util.Random;
 import java.util.Iterator;
 
 import com.medhead.mshospital.CustomProperties;
+import lombok.extern.slf4j.Slf4j;
 import org.json.simple.*;
 import org.json.simple.parser.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,8 +16,10 @@ import org.springframework.stereotype.Repository;
 
 import com.medhead.mshospital.model.Speciality;
 
+@Slf4j
 @Repository
 public class SpecialityRepository {
+
 
     @Autowired
     private CustomProperties customProperties;
@@ -56,6 +59,10 @@ public class SpecialityRepository {
 
         try {
             String currentPath = new File(".").getCanonicalPath();
+
+            if (currentPath.contains("/ms-hospital")) {
+                currentPath = currentPath.replaceFirst("/ms-hospital", "");
+            }
 
             Object obj = jsonParser.parse(new FileReader(currentPath + customProperties.getPathToSpecialtiesJsonFile()));
 
