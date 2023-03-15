@@ -37,7 +37,7 @@ public class AuthorizationController {
 
             log.info("Token is : " + token);
 
-            return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, token).body(authenticatedUser.getUsername() + " successfully authenticated");
+            return ResponseEntity.ok().header(HttpHeaders.AUTHORIZATION, token).body(token);
         } catch (BadCredentialsException ex) {
 
             log.info("User is : " + userDAO.getPassword());
@@ -48,8 +48,8 @@ public class AuthorizationController {
         }
     }
 
-    @PostMapping(value = "/getTokenvalidated/{token}")
-    public Boolean getTokenValidated (@PathVariable(value="token") String token) {
+    @PostMapping(value = "/getTokenvalidated")
+    public Boolean getTokenValidated (@RequestBody String token) {
         Boolean isTokenValidated =jwtTokenUtil.validateToken(token);
         return isTokenValidated;
     }
