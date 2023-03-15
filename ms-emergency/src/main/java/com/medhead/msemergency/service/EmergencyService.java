@@ -4,8 +4,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.medhead.msemergency.dto.NearestHospitalReservationTransform;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +17,10 @@ import com.medhead.msemergency.repository.HospitalProxy;
 
 import lombok.Data;
 
+@Slf4j
 @Data
 @Service
 public class EmergencyService {
-
-    private final Logger logger = LoggerFactory.getLogger(EmergencyService.class);
-
     @Autowired
     private HospitalProxy hospitalProxy;
 
@@ -48,11 +45,11 @@ public class EmergencyService {
 
         Hospital nearestHospital = getNearestHospital(emergency, hospitals);
 
-        logger.info("L'hopital le plus proche est : " + nearestHospital.getName());
+        log.info("The nearest hospital is : " + nearestHospital.getName());
 
         String reservation = bedAvailableProxy.savedBedAvailable(nearestHospital.getId());
 
-        logger.info("Le numéro de réservation est : " + reservation);
+        log.info("The reservation number is : " + reservation);
 
         NearestHospitalReservation nearestHospitalReservation = nearestHospitalReservationTransform.transformNearestHospitalToNearestHospitalReservation(nearestHospital, reservation);
 

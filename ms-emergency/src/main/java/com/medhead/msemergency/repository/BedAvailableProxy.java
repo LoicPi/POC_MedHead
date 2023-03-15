@@ -30,7 +30,7 @@ public class BedAvailableProxy {
 				String.class
 			);
 		
-		log.debug("Saved BedAvaibility call " + response.getStatusCode().toString());
+		log.info("Saved BedAvaibility call " + response.getStatusCode().toString());
 		
 		return response.getBody();
 	}

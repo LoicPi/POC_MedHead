@@ -33,7 +33,7 @@ public class HospitalProxy {
 				new ParameterizedTypeReference<List<Hospital>>() {}
 			);
 		
-		log.debug("Get HospitalsWithSpecialist call " + response.getStatusCode().toString());
+		log.info("Get HospitalsWithSpecialist call " + response.getStatusCode().toString());
 		
 		return response.getBody();
 	}

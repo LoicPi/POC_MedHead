@@ -27,8 +27,6 @@ public class EmergencyProxy {
 
         JSONObject response = restTemplate.getForObject(getDistance, JSONObject.class );
 
-        log.debug("Get distance between hospital and emergency call " + response.toString());
-
         Double distanceDouble = JsonPath.read(response, "$['paths'][0]['distance']");
 
         Integer distance = distanceDouble.intValue();
