@@ -30,7 +30,8 @@ public class AuthorizationProxy {
                 Boolean.class
         );
 
-        log.info("Saved BedAvaibility call " + response.getStatusCode().toString());
+        log.info("Authorization call " + response.getStatusCode().toString());
+        log.info(response.getBody().toString());
 
         return response.getBody();
     }
