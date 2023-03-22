@@ -25,7 +25,7 @@ import static org.mockito.Mockito.*;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-public class EmergencyServiceTU {
+public class EmergencyServiceTUTest {
 
     @InjectMocks
     private EmergencyService emergencyService;

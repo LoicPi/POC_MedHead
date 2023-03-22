@@ -17,7 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-public class NearestHospitalReservationTransformTU {
+public class NearestHospitalReservationTransformTUTest {
 
     @InjectMocks
     private NearestHospitalReservationTransform nearestHospitalReservationTransform;

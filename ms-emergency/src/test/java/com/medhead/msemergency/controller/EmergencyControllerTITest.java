@@ -38,7 +38,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @ContextConfiguration(classes = {EmergencyController.class, EmergencyService.class})
 @WebMvcTest
-public class EmergencyControllerTI {
+public class EmergencyControllerTITest {
 
     private final static String TEST_USER_ID = "user-id-123";
     @Autowired
