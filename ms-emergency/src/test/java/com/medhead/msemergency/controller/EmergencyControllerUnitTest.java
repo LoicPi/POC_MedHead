@@ -25,7 +25,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = EmergencyController.class)
-public class EmergencyControllerTUTest {
+public class EmergencyControllerUnitTest {
 
     private final static String TEST_USER_ID = "user-id-123";
 
