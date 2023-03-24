@@ -10,7 +10,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 @SpringBootTest
 @ExtendWith(MockitoExtension.class)
-public class BedAvailableServiceTU {
+public class BedAvailableServiceUnitTest {
 
     @InjectMocks
     private BedAvailableService bedAvailableService;

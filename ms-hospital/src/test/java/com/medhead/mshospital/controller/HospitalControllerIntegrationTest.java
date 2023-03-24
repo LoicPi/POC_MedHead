@@ -1,41 +1,51 @@
-package com.medhead.mshospital.service;
+package com.medhead.mshospital.controller;
 
-import com.medhead.mshospital.model.Hospital;
 import com.medhead.mshospital.model.Speciality;
+import com.medhead.mshospital.model.Hospital;
 import com.medhead.mshospital.repository.BedAvailableProxy;
 import com.medhead.mshospital.repository.HospitalRepository;
+import com.medhead.mshospital.repository.SpecialityRepository;
+import com.medhead.mshospital.service.HospitalService;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.junit.jupiter.api.extension.ExtendWith;
 
-import org.mockito.InjectMocks;
-import org.mockito.Mock;
-import org.mockito.junit.jupiter.MockitoExtension;
-
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.Mockito.when;
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-@SpringBootTest
-@ExtendWith(MockitoExtension.class)
-public class HospitalServiceTU {
+@AutoConfigureMockMvc
+@ContextConfiguration(classes = {HospitalController.class, HospitalService.class})
+@WebMvcTest
+public class HospitalControllerIntegrationTest {
 
-    @InjectMocks
-    private HospitalService hospitalService;
+    @Autowired
+    private MockMvc mockMvc;
 
-    @Mock
+    @MockBean
     private HospitalRepository hospitalRepositoryMock;
 
-    @Mock
+    @MockBean
+    private SpecialityRepository specialityRepositoryMock;
+
+    @MockBean
     private BedAvailableProxy bedAvailableProxyMock;
 
-    private String speciality_name_test = "Médecine d'urgence";
+    private String speciality_name_test = "Mock";
 
     private Speciality speciality_test_0 = new Speciality();
 
@@ -64,8 +74,7 @@ public class HospitalServiceTU {
     private List<Hospital> hospitals_test = new ArrayList<Hospital>();
 
     @BeforeEach
-    public void setup_Test() {
-
+    public void test_setup() {
         speciality_test_0.setId(17);
         speciality_test_0.setName(speciality_name_test);
 
@@ -124,38 +133,19 @@ public class HospitalServiceTU {
     }
 
     @Test
-    public void test_getAvailableHospitalsWithSpeciality() {
+    public void test_getAvailableHospitalsWithSpeciality() throws Exception {
         when(hospitalRepositoryMock.getHospitals()).thenReturn(hospitals_test);
         when(bedAvailableProxyMock.getBedAvailableByHospitalId(1)).thenReturn(2);
         when(bedAvailableProxyMock.getBedAvailableByHospitalId(2)).thenReturn(0);
+        when(bedAvailableProxyMock.getBedAvailableByHospitalId(3)).thenReturn(1);
         when(bedAvailableProxyMock.getBedAvailableByHospitalId(4)).thenReturn(3);
 
-        List<Hospital> hospitals = hospitalService.getAvailableHospitalsWithSpeciality(speciality_name_test);
-
-        assertEquals(hospitals.size(), 2);
-
+        mockMvc.perform(get("/availablehospitalswithspecialist/{specialityName}",  speciality_name_test)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$", hasSize(2)))
+                .andExpect(jsonPath("$.[0]['name']").value("Hospital Test 0"));
     }
-
-    @Test
-    public void test_getHospitalsWithSpeciality() {
-
-        List<Hospital> hospitalsWithSpeciality = ReflectionTestUtils.invokeMethod(hospitalService, "getHospitalsWithSpeciality", hospitals_test, speciality_name_test);
-
-        assertEquals(hospitalsWithSpeciality.size(), 3);
-        assertEquals(hospitalsWithSpeciality.get(0).getName(), hospital_test_0.getName());
-    }
-
-    @Test
-    public void test_getBedAvailableForListOfHospitals() {
-        when(bedAvailableProxyMock.getBedAvailableByHospitalId(hospital_test_0.getId())).thenReturn(2);
-        when(bedAvailableProxyMock.getBedAvailableByHospitalId(hospital_test_1.getId())).thenReturn(0);
-        when(bedAvailableProxyMock.getBedAvailableByHospitalId(hospital_test_2.getId())).thenReturn(1);
-        when(bedAvailableProxyMock.getBedAvailableByHospitalId(hospital_test_3.getId())).thenReturn(4);
-
-        List<Hospital> hospitalsWithBedAvailablesWithSpeciality = ReflectionTestUtils.invokeMethod(hospitalService, "getBedAvailableForListOfHospitals", hospitals_test);
-
-        assertEquals(hospitalsWithBedAvailablesWithSpeciality.size(), 3);
-        assertEquals(hospitalsWithBedAvailablesWithSpeciality.get(0).getName(), hospital_test_0.getName());
-    }
-
 }
