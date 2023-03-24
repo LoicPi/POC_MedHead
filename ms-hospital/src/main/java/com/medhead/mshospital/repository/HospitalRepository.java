@@ -11,7 +11,6 @@ import lombok.extern.slf4j.Slf4j;
 import org.json.simple.*;
 import org.json.simple.parser.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Repository;
 
 import com.medhead.mshospital.model.Hospital;
@@ -32,10 +31,7 @@ public class HospitalRepository {
      * Select the hospital with beds available.
      * @return The list of hospitals with beds available.
      */
-    @Cacheable("hospitals")
     public List<Hospital> getHospitals() {
-
-        log.info("Repository Hospital call");
 
         List<Hospital> hospitals = new ArrayList<Hospital>();
 
