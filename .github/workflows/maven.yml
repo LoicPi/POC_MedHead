@@ -84,11 +84,50 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
+    - name: Create folder staging
+      run: mkdir staging
     - name: Build ms-emergency with Maven
       run: mvn -B package --file ms-emergency/pom.xml -Dmaven.test.skip
+    - name: Copy jar in staging
+      run: cp target/*.jar staging
+    - name: Set up a cache for Maven
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
     - name: Build ms-authorization with Maven
       run: mvn -B package --file ms-authorization/pom.xml -Dmaven.test.skip
+    - name: Copy jar in staging
+      run: cp target/*.jar staging
+    - name: Set up a cache for Maven
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
     - name: Build ms-hospital with Maven
       run: mvn -B package --file ms-hospital/pom.xml -Dmaven.test.skip
+    - name: Copy jar in staging
+      run: cp target/*.jar staging
+    - name: Set up a cache for Maven
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
     - name: Build ms-bedavailable with Maven
-      run: mvn -B package --file ms-available/pom.xml -Dmaven.test.skip
+      run: mvn -B package --file ms-bedavailable/pom.xml -Dmaven.test.skip
+    - name: Copy jar in staging
+      run: cp target/*.jar staging
+    - name: Set up a cache for Maven
+      uses: actions/cache@v2
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
+    - name: Persist workflow data as artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: github-actions-artifact
+        path: staging
