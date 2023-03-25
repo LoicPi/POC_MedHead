@@ -38,7 +38,7 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       #Run Tests
       - name: Run Tests
-        run: mvn -B test --file ms-emergency/pom.xml
+        run: mvn -B test --file pom.xml
 
   #Sonar's Job
   sonar:
@@ -89,7 +89,7 @@ jobs:
     - name: Build ms-emergency with Maven
       run: mvn -B package --file ms-emergency/pom.xml -Dmaven.test.skip
     - name: Copy jar in staging
-      run: cp target/*.jar staging
+      run: cp ms-emergency/target/*.jar staging
     - name: Set up a cache for Maven
       uses: actions/cache@v2
       with:
@@ -99,7 +99,7 @@ jobs:
     - name: Build ms-authorization with Maven
       run: mvn -B package --file ms-authorization/pom.xml -Dmaven.test.skip
     - name: Copy jar in staging
-      run: cp target/*.jar staging
+      run: cp ms-authorization/target/*.jar staging
     - name: Set up a cache for Maven
       uses: actions/cache@v2
       with:
@@ -109,7 +109,7 @@ jobs:
     - name: Build ms-hospital with Maven
       run: mvn -B package --file ms-hospital/pom.xml -Dmaven.test.skip
     - name: Copy jar in staging
-      run: cp target/*.jar staging
+      run: cp ms-hospital/target/*.jar staging
     - name: Set up a cache for Maven
       uses: actions/cache@v2
       with:
@@ -119,7 +119,7 @@ jobs:
     - name: Build ms-bedavailable with Maven
       run: mvn -B package --file ms-bedavailable/pom.xml -Dmaven.test.skip
     - name: Copy jar in staging
-      run: cp target/*.jar staging
+      run: cp ms-bedavailable/target/*.jar staging
     - name: Set up a cache for Maven
       uses: actions/cache@v2
       with:
