@@ -74,6 +74,7 @@ jobs:
         
   build:
     needs: sonar
+    name: Build package
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v3
@@ -83,11 +84,11 @@ jobs:
         java-version: '17'
         distribution: 'temurin'
         cache: maven
-    - name: Build with Maven
-      run: mvn -B package --file pom.xml
-    - run: mvn --batch-mode --update-snapshots verify
-    - run: mkdir staging && cp target/*.jar staging
-    - uses: actions/upload-artifact@v3
-      with:
-        name: Package
-        path: staging
+    - name: Build ms-emergency with Maven
+      run: mvn -B package --file ms-emergency/pom.xml -Dmaven.test.skip
+    - name: Build ms-authorization with Maven
+      run: mvn -B package --file ms-authorization/pom.xml -Dmaven.test.skip
+    - name: Build ms-hospital with Maven
+      run: mvn -B package --file ms-hospital/pom.xml -Dmaven.test.skip
+    - name: Build ms-bedavailable with Maven
+      run: mvn -B package --file ms-available/pom.xml -Dmaven.test.skip
