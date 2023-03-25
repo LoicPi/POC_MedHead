@@ -11,6 +11,7 @@
 	<artifactId>ms-authorization</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<name>ms-authorization</name>
+	<packaging>jar</packaging>
 	<description>Demo project for Spring Boot</description>
 	<properties>
 		<java.version>17</java.version>
@@ -76,6 +77,13 @@
                             </exclude>
                         </excludes>
                     </configuration>
+					<executions>
+						<execution>
+							<goals>
+								<goal>repackage</goal>
+							</goals>
+						</execution>
+					</executions>
                 </plugin>
             </plugins>
         </build>
