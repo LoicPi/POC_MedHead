@@ -49,12 +49,4 @@
             </plugin>
         </plugins>
     </build>
-
-    <distributionManagement>
-        <repository>
-            <id>github</id>
-            <name>GitHub Packages</name>
-            <url>https://maven.pkg.github.com/LoicPi/POC_MedHead</url>
-        </repository>
-    </distributionManagement>
 </project>

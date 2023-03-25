@@ -71,6 +71,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}  # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: mvn -B verify org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=LoicPi_POC_MedHead
+
         
   build:
     needs: sonar
@@ -134,8 +135,4 @@ jobs:
       with:
         name: github-actions-artifact
         path: staging
-    - name: Publish package
-      run: mvn --batch-mode deploy -Dmaven.test.skip  
-      env:
-        GITHUB_TOKEN: ${{ secrets.TOKEN }}    
-  
+
