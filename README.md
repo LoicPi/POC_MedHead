@@ -4,13 +4,11 @@
 Ce repository est une proove of concept (POC) pour vérifier la faisabilité d'une création d'un service emergency pour trouver l'hôpital le plus proche d'une position donnée avec un lit disponible et une spécialité précise.
 
 ## Prérequis au projet
----
 Afin de pouvoir exécuter l'application sur votre poste, vous devez d'abord installer les dépendances suivantes :
 * JVM version 17
 * Maven
 
 ## Executer le projet
----
 ### Installation
 Pour installer et utiliser le projet merci de mettre tous les documents dans le même dossier de votre choix.
 1. Télécharger les jars des différents micro services [ici](https://github.com/LoicPi/POC_MedHead/suites/11809553118/artifacts/616478968) (Artefacts issue du lancement de la pipeline)
@@ -52,7 +50,6 @@ curl --location --request GET 'http://localhost:9001/emergency' \
 Vous aurez alors les coordonnées et le nom de l'hôpital le plus proche.
 
 ## Tests
----
 ### Description
 Des tests unitaires et d'intégration ont été produits pour le projet, ils permettent de s'assurer que l'ensemble de l'application répond aux attendus.
 
@@ -67,7 +64,6 @@ mvn surefire-report:report
 4. Pour voir le rapport, aller dans le dossier POC_MedHead/target/site et cliquer sur le fichier **surefire-report.html**
 
 ## Pipeline
----
 ### Description
 La pipeline mise en place sur le repository permet de :
 1. Lancer tous les tests unitaires et d'intégration du projet
