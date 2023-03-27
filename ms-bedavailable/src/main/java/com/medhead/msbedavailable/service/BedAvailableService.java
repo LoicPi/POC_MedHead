@@ -1,6 +1,6 @@
 package com.medhead.msbedavailable.service;
 
-import java.util.Random;
+import java.security.SecureRandom;
 
 import org.springframework.stereotype.Service;
 
@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class BedAvailableService {
 
-    private Random rand = new Random();
+    private SecureRandom rand = new SecureRandom();
 
     /**
      * Function to generate a random number for bed available reservation.
