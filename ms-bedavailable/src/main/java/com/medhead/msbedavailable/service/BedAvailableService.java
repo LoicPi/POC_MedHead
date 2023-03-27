@@ -12,14 +12,14 @@ import lombok.extern.slf4j.Slf4j;
 @Service
 public class BedAvailableService {
 
+    private Random rand = new Random();
+
     /**
      * Function to generate a random number for bed available reservation.
      * @param hospitalId the id of hospital request
      * @return String reservation number
      */
     public String savedBedAvailable(Integer hospitalId) {
-
-        Random rand = new Random();
 
         String numberBedAvailable = String.format("%09d", rand.nextInt(1000000000));
 
@@ -34,8 +34,6 @@ public class BedAvailableService {
      * @return Integer number of bed available
      */
     public Integer getBedAvailableByHospitalId(Integer hospitalId) {
-
-        Random rand = new Random();
 
         Integer bedAvailableForHospital = rand.nextInt(6);
 
