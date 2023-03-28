@@ -7,6 +7,7 @@ Ce repository est une proove of concept (POC) pour vérifier la faisabilité d'u
 Afin de pouvoir exécuter l'application sur votre poste, vous devez d'abord installer les dépendances suivantes :
 * JVM version 17
 * Maven
+* Apache Jmeter pour les tests de charge
 
 ## Executer le projet
 ### Installation
@@ -51,9 +52,10 @@ Vous aurez alors les coordonnées et le nom de l'hôpital le plus proche.
 
 ## Tests
 ### Description
-Des tests unitaires et d'intégration ont été produits pour le projet, ils permettent de s'assurer que l'ensemble de l'application répond aux attendus.
+Des tests unitaires et d'intégration ont été produits pour le projet, ils permettent de s'assurer que l'ensemble des fonctionnalités du code soit testé.  
+Des tests de charge ont été également fait pour vérifier la capacité de l'api d'urgence.
 
-### Lancement des tests
+### Lancement des tests unitaires et d'intégrations
 Pour le lancement des tests :
 1. Cloner le reposistory git
 2. A la racine du projet ouvrir un terminal
@@ -62,11 +64,21 @@ Pour le lancement des tests :
 mvn surefire-report:report
 ```
 4. Pour voir le rapport, aller dans le dossier POC_MedHead/target/site et cliquer sur le fichier **surefire-report.html**
+### Lancement des tests de charge
+Pour lancer les tests de charge, on utilisera le logiciel JMeter:
+1. Lancer Jmeter sur votre poste
+2. Installer les plugins suivants :  
+   * *Throughput Shaping Timer*
+   * *5 Additional Graphs*
+3. Ouvrir le fichier `POC_MedHead/JMeter/Test Charge POC_MedHead.jmx`
+4. Lancer les différents microservices (Voir la section : Executer le Projet/Executer/1.)
+5. Démarrer le test
+
 
 ## Pipeline
 ### Description
 La pipeline mise en place sur le repository permet de :
-1. Lancer tous les tests unitaires et d'intégration du projet
+1. Lancer tous les tests unitaires et d'intégrations du projet
 2. Lancer un scan du code via sonarcloud pour vérifier la qualité du code
 3. Construire un jar de chacun des microservices téléchargeable dans l'artifacts
 ### Lancement de la pipeline
@@ -76,6 +88,8 @@ La pipeline mise en place sur le repository permet de :
 4. Dans la liste des workflow runs cliquer sur le nom du 1er
 5. En haut à droite, cliquer sur le bouton **Re-Run all jobs**
 6. Dans la pop-up qui s'ouvre cliquer sur le bouton vert **Re-run jobs**
+### Les résultats
+Pouvoir les résultats concernant la qualité du code vous pouvez vous rendre sur [Sonar Cloud](https://sonarcloud.io/project/overview?id=LoicPi_POC_MedHead)
 
 
 
