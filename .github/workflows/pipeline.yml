@@ -38,10 +38,10 @@ jobs:
         run: mkdir report_test
       - name: Copy report test in report_test
         run: cp -r ms-emergency/target/site/jacoco/jacoco-resources report_test
-      - run: cp ms-emergency/target/site/jacoco report_test
-      - run: cp ms-hospital/target/site/jacoco/index.html report_test
-      - run: cp ms-bedavailable/target/site/jacoco/index.html report_test
-      - run: cp ms-authorization/target/site/jacoco/index.html report_test
+      - run: cp ms-emergency/target/site/jacoco/index.html report_test/index_msemergency.html
+      - run: cp ms-hospital/target/site/jacoco/index.html report_test/index_mshospital.html
+      - run: cp ms-bedavailable/target/site/jacoco/index.html report_test/index_msbedavailable.html
+      - run: cp ms-authorization/target/site/jacoco/index.html report_test/index_msauthorization.html
       - name : Report Tests
         uses: actions/upload-artifact@v3  # upload test results
         with:
