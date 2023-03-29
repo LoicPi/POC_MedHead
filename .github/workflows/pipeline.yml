@@ -34,6 +34,19 @@ jobs:
           restore-keys: ${{ runner.os }}-m2
       - name: Run Tests
         run: mvn -B test --file pom.xml
+      - name: Create folder report_test
+        run: mkdir report_test
+      - name: Copy report test in report_test
+        run: cp ms-emergency/target/site/jacoco/jacoco-resources report_test
+      - run: cp ms-emergency/target/site/jacoco report_test
+      - run: cp ms-hospital/target/site/jacoco/index.html report_test
+      - run: cp ms-bedavailable/target/site/jacoco/index.html report_test
+      - run: cp ms-authorization/target/site/jacoco/index.html report_test
+      - name : Report Tests
+        uses: actions/upload-artifact@v3  # upload test results
+        with:
+          name: Tests
+          path: report_test
 
   #Sonar's Job
   sonar:
