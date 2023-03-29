@@ -36,13 +36,11 @@ jobs:
         run: mvn -B test --file pom.xml
       - name: Create folder report_test
         run: mkdir report_test
-      - name: Copy report test in report_test
+      - name: Copy css in report_test
         run: cp -r ms-emergency/target/site/jacoco/jacoco-resources report_test
-      - run: cp ms-emergency/target/site/jacoco/index.html report_test/index_msemergency.html
-      - run: cp ms-hospital/target/site/jacoco/index.html report_test/index_mshospital.html
-      - run: cp ms-bedavailable/target/site/jacoco/index.html report_test/index_msbedavailable.html
-      - run: cp ms-authorization/target/site/jacoco/index.html report_test/index_msauthorization.html
-      - name : Report Tests
+      - name: copy report test in report_test
+        run: cp ms-emergency/target/site/jacoco/index.html report_test
+      - name : Create Report Tests Artifact
         uses: actions/upload-artifact@v3  # upload test results
         with:
           name: Tests
