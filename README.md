@@ -1,5 +1,5 @@
 # POC_MedHead
-[![Pipeline CI/CD](https://github.com/LoicPi/POC_MedHead/actions/workflows/maven.yml/badge.svg)](https://github.com/LoicPi/POC_MedHead/actions/workflows/maven.yml)  [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=LoicPi_POC_MedHead&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=LoicPi_POC_MedHead)
+[![Pipeline CI/CD](https://github.com/LoicPi/POC_MedHead/actions/workflows/pipeline.yml/badge.svg)](https://github.com/LoicPi/POC_MedHead/actions/workflows/maven.yml)  [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=LoicPi_POC_MedHead&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=LoicPi_POC_MedHead)
 
 Ce repository est une Proove Of Concept (POC) pour vérifier la faisabilité d'une création d'un service emergency pour trouver l'hôpital le plus proche d'une position donnée avec un lit disponible et une spécialité précise.
 
