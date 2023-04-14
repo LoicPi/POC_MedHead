@@ -1,5 +1,5 @@
 # POC_MedHead
-[![Pipeline CI/CD](https://github.com/LoicPi/POC_MedHead/actions/workflows/pipeline.yml/badge.svg)](https://github.com/LoicPi/POC_MedHead/actions/workflows/maven.yml)  [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=LoicPi_POC_MedHead&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=LoicPi_POC_MedHead)
+[[![Pipeline CI/CD](https://github.com/LoicPi/POC_MedHead/actions/workflows/pipeline.yml/badge.svg)](https://github.com/LoicPi/POC_MedHead/actions/workflows/pipeline.yml)  [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=LoicPi_POC_MedHead&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=LoicPi_POC_MedHead)
 
 Ce repository est une Proove Of Concept (POC) pour vérifier la faisabilité d'une création d'un service emergency pour trouver l'hôpital le plus proche d'une position donnée avec un lit disponible et une spécialité précise.
 
@@ -41,7 +41,7 @@ curl --location --request POST 'http://localhost:9004/login' \
 ```
 3. Lancer la requête suivante en veillant à mettre :
     * le token récupéré après `Bearer` dans le `header`
-    * la latitude et la longitude de l'urgence et de la spécialité recherché ([tableau des spécialités]()) dans le `data-raw`
+    * la latitude et la longitude de l'urgence et de la spécialité recherché ([tableau des spécialités](https://github.com/LoicPi/MedHead_Architecture/blob/main/External%20Reference/Donne%CC%81es_de_re%CC%81fe%CC%81rence_sur_les_spe%CC%81cialite%CC%81s_NHS.pdf)) dans le `data-raw`
 ```bash
 curl --location --request GET 'http://localhost:9001/emergency' \
 --header 'Authorization: Bearer token' \
